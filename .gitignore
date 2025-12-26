@@ -1,0 +1,44 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Dependencies
+/vendor
+/node_modules
+
+# Build assets
+/public/build
+/public/hot
+
+# Storage
+/storage/*.key
+/storage/*.log
+/storage/framework/*
+!/storage/framework/.gitignore
+/storage/app/*
+!/storage/app/public/.gitignore
+/public/storage
+
+# Cache & logs
+*.log
+.phpunit.result.cache
+/.phpunit.cache
+
+# IDE & Editor
+/.idea
+/.vscode
+/.fleet
+/.zed
+.phpactor.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Composer auth
+/auth.json
+
+# Homestead
+Homestead.json
+Homestead.yaml

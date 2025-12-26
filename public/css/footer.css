@@ -1,0 +1,113 @@
+/* Footer CSS */
+.footer-section {
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 60px 0 30px;
+  font-family: 'Poppins', sans-serif;
+  margin-top: auto;
+  /* Push to bottom if content is short, though typically used with flex body */
+}
+
+/* Footer Container */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* Left Column: Brand & Contact */
+.footer-left {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+  display: inline-block;
+  position: relative;
+}
+
+.footer-brand::after {
+  content: '.';
+  color: #D6F849;
+  /* Brand Accent Color */
+}
+
+.footer-contact p {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-contact i {
+  color: #D6F849;
+  width: 20px;
+}
+
+/* Right Column: CTA */
+.footer-right {
+  flex: 1;
+  min-width: 250px;
+  text-align: right;
+}
+
+.footer-tagline {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 25px;
+  color: #f0f0f0;
+}
+
+.footer-btn {
+  display: inline-block;
+  background-color: #D6F849;
+  color: #000;
+  padding: 12px 35px;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid #D6F849;
+}
+
+.footer-btn:hover {
+  background-color: transparent;
+  color: #D6F849;
+}
+
+/* Copyright / Bottom Bar */
+.footer-bottom {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-right {
+    text-align: center;
+  }
+
+  .footer-left {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+}

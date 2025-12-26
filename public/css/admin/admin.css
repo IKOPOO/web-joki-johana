@@ -1,0 +1,186 @@
+/* ===========================================
+   ADMIN BASE LAYOUT STYLES
+   File: admin.css
+   
+   Color Palette:
+   - Primary Yellow: #FEC72E
+   - Dark Gray: #424242
+   - Cream: #FDF9F1
+   - White: #FFFFFF
+   
+   Import other CSS files for specific components:
+   - sidebar.css: Sidebar styles
+   - dashboard.css: Dashboard-specific styles
+   =========================================== */
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #FDF9F1;
+  color: #424242;
+}
+
+/* Admin Layout Container */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===========================================
+   MAIN CONTENT AREA
+   =========================================== */
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Content Header */
+.content-header {
+  background: #FFFFFF;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #424242;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* User Info */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: #FDF9F1;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.user-info:hover {
+  background: #f5efe5;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #FEC72E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #424242;
+  font-size: 20px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #424242;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #666666;
+  text-transform: capitalize;
+}
+
+/* Content Body */
+.content-body {
+  flex: 1;
+  padding: 30px 40px;
+}
+
+/* ===========================================
+   ALERTS
+   =========================================== */
+.alert {
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert i {
+  font-size: 18px;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+/* ===========================================
+   RESPONSIVE LAYOUT
+   =========================================== */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 70px;
+  }
+
+  .content-header {
+    padding: 20px;
+  }
+
+  .content-body {
+    padding: 20px;
+  }
+
+  .header-left h1 {
+    font-size: 22px;
+  }
+
+  .user-details {
+    display: none;
+  }
+}

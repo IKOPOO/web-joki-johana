@@ -1,0 +1,202 @@
+/* Login Page CSS - Split Screen Design */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.back-home-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  text-decoration: none;
+  color: #333;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.back-home-btn:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.split-screen {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.left-pane {
+  flex: 1;
+  /* Takes up remaining space (e.g. 50% or more) */
+  background-color: #f0f0f0;
+  overflow: hidden;
+  position: relative;
+}
+
+.left-pane img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Optional: add a filter or overlay if image is too bright */
+}
+
+.right-pane {
+  width: 50%;
+  /* Fixed width or percentage for login form side */
+  max-width: 600px;
+  /* Max width to prevent it getting too wide on huge screens */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 40px;
+}
+
+.login-content {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.login-content p {
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+/* Alert Styles */
+.alert {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.9rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert i {
+  font-size: 18px;
+  margin-top: 2px;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+.alert-error div {
+  margin: 2px 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #333;
+  outline: none;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #D6F849;
+  color: black;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  background-color: #c9eb3b;
+}
+
+.register-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.register-link a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .split-screen {
+    flex-direction: column;
+  }
+
+  .left-pane {
+    display: none;
+    /* Hide image on mobile to focus on login */
+  }
+
+  .right-pane {
+    width: 100%;
+    max-width: 100%;
+  }
+}

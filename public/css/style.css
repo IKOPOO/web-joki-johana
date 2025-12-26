@@ -1,0 +1,456 @@
+/* Basic Styling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+/* Container */
+.container {
+  max-width: 1400px;
+  /* Widened from 1200px */
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Navbar */
+/* Navbar styles moved to navbar.css */
+
+.images-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  /* Changed to 2 rows */
+  grid-gap: 15px;
+  grid-template-areas:
+    "foto1 foto2"
+    /* Top Right */
+    "foto1 foto3";
+  /* Bottom Right */
+  width: 40%;
+  /* Further reduced width */
+  align-self: center;
+  /* Ensure container is centered vertically in flex item if needed */
+}
+
+/* Grid Assignments */
+.image:nth-child(1) {
+  grid-area: foto1;
+  width: 100%;
+  margin-top: 0;
+  align-self: center;
+  /* Center vertically in the 2-row span */
+}
+
+.image:nth-child(2) {
+  grid-area: foto2;
+  width: 100%;
+  align-self: end;
+  /* Optional: push to bottom of its cell if needed, or default stretch */
+}
+
+.image:nth-child(3) {
+  grid-area: foto3;
+  width: 100%;
+  align-self: start;
+  /* Optional: push to top of its cell if needed */
+}
+
+.image {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  /* Ensure aspect ratio */
+}
+
+
+/* Hero Section */
+.hero-nav {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+/* Ensure hero-desc is visible */
+.hero-desc {
+  z-index: 1;
+}
+
+/* Hero Buttons */
+#book {
+  background-color: #D6F849;
+  color: black;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+/* Arrow Icon */
+#vector {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: #D6F849;
+  border-radius: 50%;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+#vector i {
+  font-size: 20px;
+  color: black;
+}
+
+/* About Section */
+.why-us-section {
+  background-image: url('../images/Vector 31.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 200px -150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Center horizontally */
+  padding: 20px 50px;
+  /* Reduced vertical padding */
+  gap: 80px;
+  /* Increased gap for separation since we are centering */
+  background-color: white;
+  min-height: 100vh;
+}
+
+.about-content {
+  /* Removed specific layout styles here as they are handled by why-us-section now or can be simplified */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 400px;
+  /* Increased separation */
+}
+
+/* ... skipped unchanged ... */
+
+.about-text {
+  width: 50%;
+  color: black;
+  /* Assuming dark background from Vector 31.png, change if needed */
+}
+
+.about-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.about-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Price List Section */
+.price-list-section {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+
+.price-list-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.price-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  width: 300px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  position: relative;
+  border: 1px solid #eee;
+  transition: transform 0.3s ease;
+}
+
+.price-card:hover {
+  transform: translateY(-10px);
+}
+
+.best-seller {
+  background-color: #D6F849;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.price-card h2 {
+  font-size: 2.5rem;
+  margin: 20px 0 10px;
+}
+
+.price-card h2 span {
+  font-size: 1rem;
+  color: #888;
+}
+
+.price-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.price-card p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.price-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.price-card ul li {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.book-now-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #D6F849;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.book-now-btn:hover {
+  background-color: #c9eb3b;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 100px 0;
+  text-align: center;
+  background-color: #f9f9f9;
+  /* Light background to distinguish section */
+}
+
+.testimonials-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.testimonials-carousel {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.testimonial {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.testimonial:hover {
+  transform: translateY(-5px);
+}
+
+.testimonial img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  object-fit: cover;
+  border: 3px solid #D6F849;
+}
+
+.testimonial h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.testimonial p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 20px 0;
+  /* Reduced padding */
+  text-align: left;
+  min-height: 100vh;
+  display: flex;
+  /* Use flex to center the container vertically */
+  align-items: center;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  /* Ensure responsiveness */
+}
+
+.contact-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.contact-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.contact-info p {
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.contact-info ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.contact-info ul li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.contact-form {
+  background: #fdfdfd;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form h4 {
+  margin-bottom: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
+  box-sizing: border-box;
+  /* Crucial for padding inside width */
+}
+
+.contact-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.contact-form button {
+  background-color: #D6F849;
+  color: black;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #c9eb3b;
+}
+
+.contact-map {
+  flex: 1;
+  min-width: 300px;
+  /* Remove fixed height and overflow hidden to allow text below */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 350px;
+  /* Specific height for the map */
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-details-list {
+  list-style: none;
+  padding: 25px;
+  /* Add padding inside the card */
+  margin: 30px 0 0 0;
+  /* Add top margin for spacing from map */
+  text-align: left;
+  background-color: #fff;
+  /* White background */
+  border-radius: 15px;
+  /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  /* Shadow for pop effect */
+  border-left: 5px solid #D6F849;
+  /* Accent border matching theme */
+}
+
+.contact-details-list li {
+  margin-bottom: 15px;
+  /* Increase spacing between items */
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+  /* Slightly bolder text */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
