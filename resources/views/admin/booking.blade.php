@@ -105,7 +105,7 @@
     </div>
 
     <!-- Booking Table Section -->
-    <div class="section-title">
+    <div class="section-title" id="bookings-table">
       <h2><i class="fas fa-list"></i> Daftar Booking</h2>
     </div>
 
@@ -211,7 +211,7 @@
                 <i class="fas fa-chevron-left"></i> Prev
               </button>
             @else
-              <a href="{{ $bookings->previousPageUrl() }}" class="pagination-btn">
+              <a href="{{ $bookings->previousPageUrl() }}#bookings-table" class="pagination-btn">
                 <i class="fas fa-chevron-left"></i> Prev
               </a>
             @endif
@@ -228,13 +228,13 @@
                 @if ($page == $currentPage)
                   <button class="page-btn active">{{ $page }}</button>
                 @else
-                  <a href="{{ $bookings->url($page) }}" class="page-btn">{{ $page }}</a>
+                  <a href="{{ $bookings->url($page) }}#bookings-table" class="page-btn">{{ $page }}</a>
                 @endif
               @endfor
             </div>
 
             @if ($bookings->hasMorePages())
-              <a href="{{ $bookings->nextPageUrl() }}" class="pagination-btn">
+              <a href="{{ $bookings->nextPageUrl() }}#bookings-table" class="pagination-btn">
                 Next <i class="fas fa-chevron-right"></i>
               </a>
             @else

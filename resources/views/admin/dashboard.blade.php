@@ -87,7 +87,7 @@
     <div class="charts-grid-2col">
       @include('admin.partials.chart-card', [
         'title' => 'Segmentasi Pengguna',
-        'subtitle' => 'Berdasarkan role & aktivitas',
+        'subtitle' => 'Berdasarkan lifecycle & aktivitas',
         'chartId' => 'userSegmentationChart',
         'type' => 'pie'
       ])
@@ -108,7 +108,7 @@
     ])
 
     <!-- Latest Booking Status Section -->
-    <div class="section-title">
+    <div class="section-title" id="bookings-table">
       <h2><i class="fas fa-clipboard-list"></i> Status Booking Terbaru</h2>
     </div>
 
@@ -129,7 +129,7 @@
           <tbody>
             @forelse($recentBookings as $index => $booking)
               <tr>
-                <td>{{ $index + 1 }}</td>
+                <td>{{ $recentBookings->firstItem() + $index }}</td>
                 <td>
                   <div class="customer-info">
                     <span class="customer-name">{{ $booking->user->name ?? 'Guest' }}</span>
@@ -160,20 +160,36 @@
       </div>
 
       <!-- Pagination -->
-      <div class="table-pagination">
-        <div class="pagination-info">
-          Menampilkan 1-5 dari 25 booking
+      @if($recentBookings->hasPages())
+        <div class="table-pagination">
+          <div class="pagination-info">
+            Menampilkan {{ $recentBookings->firstItem() }} - {{ $recentBookings->lastItem() }} dari {{ $recentBookings->total() }} booking
+          </div>
+          <div class="pagination-nav">
+            @if($recentBookings->onFirstPage())
+              <button class="pagination-btn" disabled>
+                <i class="fas fa-chevron-left"></i> Prev
+              </button>
+            @else
+              <a href="{{ $recentBookings->previousPageUrl() }}#bookings-table" class="pagination-btn">
+                <i class="fas fa-chevron-left"></i> Prev
+              </a>
+            @endif
+            
+            <span class="pagination-page">{{ $recentBookings->currentPage() }} / {{ $recentBookings->lastPage() }}</span>
+            
+            @if($recentBookings->hasMorePages())
+              <a href="{{ $recentBookings->nextPageUrl() }}#bookings-table" class="pagination-btn">
+                Next <i class="fas fa-chevron-right"></i>
+              </a>
+            @else
+              <button class="pagination-btn" disabled>
+                Next <i class="fas fa-chevron-right"></i>
+              </button>
+            @endif
+          </div>
         </div>
-        <div class="pagination-nav">
-          <button class="pagination-btn" disabled>
-            <i class="fas fa-chevron-left"></i> Prev
-          </button>
-          <span class="pagination-page">1 / 5</span>
-          <button class="pagination-btn">
-            Next <i class="fas fa-chevron-right"></i>
-          </button>
-        </div>
-      </div>
+      @endif
     </div>
 
   </main>
@@ -393,23 +409,23 @@
       }
     });
 
-    // 6. User Segmentation (Pie Chart)
+    // 6. User Segmentation (Pie Chart) - Lifecycle Based
     new Chart(document.getElementById('userSegmentationChart'), {
       type: 'pie',
       data: {
-        labels: ['Baru (30 Hari)', 'Aktif (Berulang)', 'Pasif (Lama)', 'Belum Booking'],
+        labels: ['New (<30 Hari)', 'Engaged (≥2 Booking)', 'Casual (1 Booking)', 'Dormant (Belum Booking)'],
         datasets: [{
           data: [
-            {{ $userSegmentation['baru'] }}, 
-            {{ $userSegmentation['aktif'] }}, 
-            {{ $userSegmentation['lama'] }}, 
-            {{ $userSegmentation['none'] }}
+            {{ $userSegmentation['new'] }}, 
+            {{ $userSegmentation['engaged'] }}, 
+            {{ $userSegmentation['casual'] }}, 
+            {{ $userSegmentation['dormant'] }}
           ],
           backgroundColor: [
-            'rgba(40, 167, 69, 0.8)',  // Hijau untuk Baru
-            'rgba(254, 199, 46, 0.9)', // Kuning untuk Aktif
-            'rgba(66, 66, 66, 0.6)',   // Abu untuk Lama
-            'rgba(220, 53, 69, 0.7)'   // Merah untuk Belum Booking
+            'rgba(40, 167, 69, 0.8)',  // Hijau untuk New
+            'rgba(254, 199, 46, 0.9)', // Kuning untuk Engaged
+            'rgba(66, 66, 66, 0.6)',   // Abu untuk Casual
+            'rgba(220, 53, 69, 0.7)'   // Merah untuk Dormant
           ],
           borderWidth: 0,
           hoverOffset: 10

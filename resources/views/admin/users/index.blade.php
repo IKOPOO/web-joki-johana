@@ -118,7 +118,7 @@
     </div>
 
     <!-- Users Table Section -->
-    <div class="section-title">
+    <div class="section-title" id="users-table">
       <h2><i class="fas fa-users-cog"></i> Daftar Pengguna</h2>
     </div>
 
@@ -234,18 +234,18 @@
           @if ($users->onFirstPage())
             <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i> Prev</button>
           @else
-            <a href="{{ $users->previousPageUrl() }}" class="pagination-btn"><i class="fas fa-chevron-left"></i> Prev</a>
+            <a href="{{ $users->previousPageUrl() }}#users-table" class="pagination-btn"><i class="fas fa-chevron-left"></i> Prev</a>
           @endif
 
           <div class="pagination-pages">
             {{-- Simplified Pagination Elements --}}
             @foreach ($users->getUrlRange(max(1, $users->currentPage() - 1), min($users->lastPage(), $users->currentPage() + 1)) as $page => $url)
-               <a href="{{ $url }}" class="page-btn {{ $page == $users->currentPage() ? 'active' : '' }}">{{ $page }}</a>
+               <a href="{{ $url }}#users-table" class="page-btn {{ $page == $users->currentPage() ? 'active' : '' }}">{{ $page }}</a>
             @endforeach
           </div>
 
           @if ($users->hasMorePages())
-            <a href="{{ $users->nextPageUrl() }}" class="pagination-btn">Next <i class="fas fa-chevron-right"></i></a>
+            <a href="{{ $users->nextPageUrl() }}#users-table" class="pagination-btn">Next <i class="fas fa-chevron-right"></i></a>
           @else
             <button class="pagination-btn" disabled>Next <i class="fas fa-chevron-right"></i></button>
           @endif

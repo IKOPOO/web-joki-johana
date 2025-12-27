@@ -59,7 +59,7 @@
     @endif
 
     <!-- Page Title -->
-    <div class="page-title-section">
+    <div class="page-title-section" id="packages-table">
       <h1 class="main-title">Daftar Package</h1>
       <p class="subtitle">Studio: <span class="studio-name">{{ $studio->name }}</span></p>
     </div>
@@ -145,7 +145,7 @@
                 <i class="fas fa-chevron-left"></i> Prev
               </button>
             @else
-              <a href="{{ $packages->previousPageUrl() }}" class="pagination-btn">
+              <a href="{{ $packages->previousPageUrl() }}#packages-table" class="pagination-btn">
                 <i class="fas fa-chevron-left"></i> Prev
               </a>
             @endif
@@ -162,13 +162,13 @@
                 @if ($page == $currentPage)
                   <button class="page-btn active">{{ $page }}</button>
                 @else
-                  <a href="{{ $packages->url($page) }}" class="page-btn">{{ $page }}</a>
+                  <a href="{{ $packages->url($page) }}#packages-table" class="page-btn">{{ $page }}</a>
                 @endif
               @endfor
             </div>
 
             @if ($packages->hasMorePages())
-              <a href="{{ $packages->nextPageUrl() }}" class="pagination-btn">
+              <a href="{{ $packages->nextPageUrl() }}#packages-table" class="pagination-btn">
                 Next <i class="fas fa-chevron-right"></i>
               </a>
             @else

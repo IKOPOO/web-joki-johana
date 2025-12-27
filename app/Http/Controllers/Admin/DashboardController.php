@@ -80,25 +80,23 @@ class DashboardController extends Controller
       ]);
     }
 
-    // 4. User Segmentation (Customers Only)
+    // 4. User Segmentation - Lifecycle Based (Customers Only)
     $customerQuery = User::where('role', 'CUSTOMER');
     $userSegmentation = [
-      // Joined in last 30 days
-      'baru' => (clone $customerQuery)->where('created_at', '>=', Carbon::now()->subDays(30))->count(),
-      // Joined > 30 days ago AND has at least 1 booking in last 30 days
-      'aktif' => (clone $customerQuery)->where('created_at', '<', Carbon::now()->subDays(30))
-        ->whereHas('bookings', function ($q) {
-          $q->where('booking_datetime', '>=', Carbon::now()->subDays(30));
-        })->count(),
-      // Joined > 30 days ago AND has bookings but NONE in last 30 days
-      'lama' => (clone $customerQuery)->where('created_at', '<', Carbon::now()->subDays(30))
-        ->whereHas('bookings')
-        ->whereDoesntHave('bookings', function ($q) {
-          $q->where('booking_datetime', '>=', Carbon::now()->subDays(30));
-        })->count(),
-      // Joined > 30 days ago AND never booked
-      'none' => (clone $customerQuery)->where('created_at', '<', Carbon::now()->subDays(30))
-        ->whereDoesntHave('bookings')->count(),
+      // New: Registered < 30 days (regardless of booking count)
+      'new' => (clone $customerQuery)->where('created_at', '>=', Carbon::now()->subDays(30))->count(),
+
+      // Engaged: Registered >= 30 days AND has 2+ bookings
+      'engaged' => (clone $customerQuery)->where('created_at', '<', Carbon::now()->subDays(30))
+        ->has('bookings', '>=', 2)->count(),
+
+      // Casual: Registered >= 30 days AND has exactly 1 booking
+      'casual' => (clone $customerQuery)->where('created_at', '<', Carbon::now()->subDays(30))
+        ->has('bookings', '=', 1)->count(),
+
+      // Dormant: Registered >= 30 days AND never booked
+      'dormant' => (clone $customerQuery)->where('created_at', '<', Carbon::now()->subDays(30))
+        ->doesntHave('bookings')->count(),
     ];
 
     // 5. Income Per Studio (Top 5) - Only PAID
@@ -120,8 +118,7 @@ class DashboardController extends Controller
     // Recent bookings for table
     $recentBookings = Booking::with(['user', 'studio', 'package'])
       ->latest()
-      ->limit(5)
-      ->get();
+      ->paginate(5);
 
     return view('admin.dashboard', compact(
       'stats',
