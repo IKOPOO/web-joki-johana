@@ -106,10 +106,10 @@ body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 44px;
   background-color: #D6F849;
-  border-radius: 50%;
+  border-radius: 50px;
   text-decoration: none;
   vertical-align: middle;
 }
