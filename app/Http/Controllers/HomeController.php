@@ -12,8 +12,15 @@ class HomeController extends Controller
   public function index()
   {
     $studios = Studio::with('packages')->where('status', 'active')->get();
-    $packages = Package::all();
 
-    return view('home', compact('studios', 'packages'));
+    // Get packages with booking count
+    $packages = Package::withCount('bookings')
+      ->orderBy('bookings_count', 'desc')
+      ->get();
+
+    // Get best seller package ID (package with most bookings)
+    $bestSellerPackageId = $packages->first()?->id;
+
+    return view('home', compact('studios', 'packages', 'bestSellerPackageId'));
   }
 }

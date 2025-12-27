@@ -55,71 +55,65 @@
     <div class="container">
       <h1 class="title">Price List</h1>
       <div class="price-list-container">
-        <!-- Static Price Cards -->
-        <div class="price-card">
-          <span class="best-seller">Best Seller</span>
-          <h2>40rb <span>/paket</span></h2>
-          <h3>Packet Basic</h3>
-          <p>Paket basic self photo session</p>
-          <br>
-          <ul>
-            <li>✔️ 1/2 person</li>
-            <li>✔️ 1 extra printed photo</li>
-            <li>✔️ 15 mins photoshot</li>
-            <li>✔️ 10 mins photo selection</li>
-            <li>✔️ Choose colour & frame</li>
-            <li>✔️ All digital photos</li>
-          </ul>
-          @if(session('user_id'))
-            <button id="reservasi" class="book-now-btn">Booking sekarang</button>
-          @else
-            <a href="{{ route('login') }}"><button class="book-now-btn">Sign In First</button></a>
-          @endif
-        </div>
+        <!-- Dynamic Price Cards -->
+        @foreach($packages as $index => $package)
+          <div class="price-card">
+            @if(isset($bestSellerPackageId) && $package->id === $bestSellerPackageId)
+              <span class="best-seller">Best Seller</span>
+            @endif
 
-        <div class="price-card">
-          <span class="best-seller">Best Seller</span>
-          <h2>55rb <span>/paket</span></h2>
-          <h3>Packet Basic +
-            <br>Additionals 1
-          </h3>
-          <p>Paket basic self photo session</p>
-          <ul>
-            <li>✔️ 4 persons max</li>
-            <li>✔️ 1 extra printed photo</li>
-            <li>✔️ 15 mins photoshot</li>
-            <li>✔️ 10 mins photo selection</li>
-            <li>✔️ Choose colour & frame</li>
-            <li>✔️ All digital photos</li>
-          </ul>
-          @if(session('user_id'))
-            <button id="reservasi" class="book-now-btn">Booking sekarang</button>
-          @else
-            <a href="{{ route('login') }}"><button class="book-now-btn">Sign In First</button></a>
-          @endif
-        </div>
+            @if($index === 0)
+              <h2>40rb <span>/paket</span></h2>
+              <h3>Packet Basic</h3>
+              <p>Paket basic self photo session</p>
+              <br>
+              <ul>
+                <li>✔️ 1/2 person</li>
+                <li>✔️ 1 extra printed photo</li>
+                <li>✔️ 15 mins photoshot</li>
+                <li>✔️ 10 mins photo selection</li>
+                <li>✔️ Choose colour & frame</li>
+                <li>✔️ All digital photos</li>
+              </ul>
+            @elseif($index === 1)
+              <h2>55rb <span>/paket</span></h2>
+              <h3>Packet Basic +
+                <br>Additionals 1
+              </h3>
+              <p>Paket basic self photo session</p>
+              <ul>
+                <li>✔️ 4 persons max</li>
+                <li>✔️ 1 extra printed photo</li>
+                <li>✔️ 15 mins photoshot</li>
+                <li>✔️ 10 mins photo selection</li>
+                <li>✔️ Choose colour & frame</li>
+                <li>✔️ All digital photos</li>
+              </ul>
+            @elseif($index === 2)
+              <h2>65rb <span>/paket</span></h2>
+              <h3>Packet Basic
+                <br>+ Additionals 2
+              </h3>
+              <p>Paket basic self photo session</p>
+              <ul>
+                <li>✔️ 4 persons max</li>
+                <li>✔️ 2 extra printed photo</li>
+                <li>✔️ 15 mins photoshot</li>
+                <li>✔️ 10 mins photo selection</li>
+                <li>✔️ Choose colour & frame</li>
+                <li>✔️ All digital photos</li>
+              </ul>
+            @endif
 
-        <div class="price-card">
-          <span class="best-seller">Best Seller</span>
-          <h2>65rb <span>/paket</span></h2>
-          <h3>Packet Basic
-            <br>+ Additionals 2
-          </h3>
-          <p>Paket basic self photo session</p>
-          <ul>
-            <li>✔️ 4 persons max</li>
-            <li>✔️ 2 extra printed photo</li>
-            <li>✔️ 15 mins photoshot</li>
-            <li>✔️ 10 mins photo selection</li>
-            <li>✔️ Choose colour & frame</li>
-            <li>✔️ All digital photos</li>
-          </ul>
-          @if(session('user_id'))
-            <button id="reservasi" class="book-now-btn">Booking sekarang</button>
-          @else
-            <a href="{{ route('login') }}"><button class="book-now-btn">Sign In First</button></a>
-          @endif
-        </div>
+            @if(session('user_id'))
+              <button id="reservasi" class="book-now-btn">Booking sekarang</button>
+            @else
+              <a href="{{ route('login') }}"><button class="book-now-btn">Sign In First</button></a>
+            @endif
+          </div>
+
+          @if($index === 2) @break @endif
+        @endforeach
 
       </div>
     </div>
