@@ -54,7 +54,37 @@
   color: white;
   font-weight: bold;
   font-size: 1rem;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.navmenu li a:hover {
+  color: #D6F849;
+  transform: translateY(-2px);
+}
+
+.navmenu li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #D6F849;
+  transition: width 0.3s ease;
+}
+
+.navmenu li a:hover::after {
+  width: 100%;
+}
+
+.nav.scrolled .navmenu li a:hover {
+  color: #424242;
+}
+
+.nav.scrolled .navmenu li a::after {
+  background-color: #424242;
 }
 
 /* Auth Buttons */
