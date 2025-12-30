@@ -14,6 +14,8 @@ class Studio extends Model
     'address',
     'city',
     'status',
+    'description',
+    'image',
   ];
 
 
@@ -21,6 +23,11 @@ class Studio extends Model
   public function packages()
   {
     return $this->hasMany(Package::class);
+  }
+
+  public function sessionSlots()
+  {
+    return $this->hasMany(SessionSlot::class);
   }
 
   // Studio punya banyak booking
@@ -33,5 +40,10 @@ class Studio extends Model
   public function users()
   {
     return $this->hasMany(User::class);
+  }
+
+  public function operationalHours()
+  {
+    return $this->hasMany(OperationalHour::class);
   }
 }

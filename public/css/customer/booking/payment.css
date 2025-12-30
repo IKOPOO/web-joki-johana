@@ -1,0 +1,373 @@
+.payment-wrapper {
+  background: #f9f9f9;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.payment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.payment-header {
+  background: #202020;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.payment-header h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  color: #FEC72E;
+}
+
+.payment-header p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  padding: 30px;
+}
+
+.detail-card h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-card h3 i {
+  color: #FEC72E;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.info-row label {
+  color: #888;
+}
+
+.info-row span {
+  font-weight: 500;
+  color: #202020;
+  text-align: right;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.session-info-grid {
+  display: flex;
+  justify-content: space-between;
+  background: #fffdf5;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ffeeba;
+}
+
+.info-item label {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.info-item .val {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #202020;
+}
+
+.payment-summary {
+  background: #fafafa;
+  padding: 30px;
+  border-top: 1px solid #eee;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #202020;
+  margin-bottom: 25px;
+}
+
+.form-select,
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 25px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.payment-group {
+  margin-bottom: 15px;
+}
+
+.payment-group label,
+.payment-method-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-back,
+.btn-pay {
+  flex: 1;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-back {
+  background: white;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-back:hover {
+  background: #f0f0f0;
+}
+
+.btn-pay {
+  background: #FEC72E;
+  color: #202020;
+}
+
+.btn-pay:hover {
+  background: #e09537;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(254, 199, 46, 0.3);
+}
+
+@media (max-width: 768px) {
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .session-info-grid {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+.btn-back-custom {
+  text-decoration: none;
+  color: #424242;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+  background: #f2f2f2;
+  padding: 10px 25px;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+  font-size: 0.9rem;
+}
+
+.btn-back-custom:hover {
+  background: #e6e6e6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back-custom i {
+  margin-right: 8px;
+  color: #FEC72E;
+}
+
+/* Method Cards */
+.method-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+}
+
+.method-card {
+  cursor: pointer;
+  position: relative;
+}
+
+.method-card input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.method-card .card-content {
+  border: 2px solid #eee;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.2s;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.method-card .card-content i {
+  font-size: 1.5rem;
+  color: #888;
+  transition: color 0.2s;
+}
+
+.method-card .card-content span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.method-card:hover .card-content {
+  border-color: #FEC72E;
+  background: #fffdf5;
+}
+
+.method-card input:checked+.card-content {
+  border-color: #FEC72E;
+  background: #fffdf5;
+  box-shadow: 0 4px 10px rgba(254, 199, 46, 0.2);
+}
+
+.method-card input:checked+.card-content i {
+  color: #FEC72E;
+}
+
+.method-card input:checked+.card-content span {
+  color: #202020;
+}
+
+/* Upload Area */
+.upload-area {
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fdfdfd;
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-area:hover {
+  border-color: #FEC72E;
+  background: #fffdf5;
+}
+
+.payment-instruction {
+  margin-top: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.bank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bank-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.bank-logo {
+  font-weight: 800;
+  color: #202020;
+  font-size: 1.1rem;
+  width: 60px;
+}
+
+.bank-info {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.acc-num {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  letter-spacing: 1px;
+}
+
+.acc-name {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.btn-copy {
+  background: none;
+  border: none;
+  color: #FEC72E;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.1rem;
+}
+
+.btn-copy:hover {
+  color: #e09537;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

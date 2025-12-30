@@ -1,0 +1,87 @@
+/* Page Title Styles */
+.page-title-section {
+  margin-bottom: 25px;
+}
+
+.main-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #202020;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+.studio-name {
+  font-weight: 600;
+  color: #FEC72E;
+}
+
+.verification-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #202020 0%, #3a3a3a 100%);
+  color: white;
+  padding: 25px 30px;
+  /* Increased padding */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.card-header:hover {
+  background: linear-gradient(135deg, #333 0%, #4a4a4a 100%);
+}
+
+.card-body {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 25px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr 350px;
+}
+
+.verification-card.active .card-body {
+  max-height: 1000px;
+  /* Arbitrary large value to allow content */
+  padding: 25px;
+  opacity: 1;
+}
+
+.expand-icon {
+  transition: transform 0.3s ease;
+}
+
+.verification-card.active .expand-icon {
+  transform: rotate(180deg);
+}
+
+.proof-preview img {
+  transition: transform 0.3s ease;
+}
+
+.proof-preview img:hover {
+  transform: scale(1.02);
+}
+
+@media(max-width: 900px) {
+  .card-body {
+    grid-template-columns: 1fr !important;
+  }
+}

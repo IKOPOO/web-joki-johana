@@ -1,0 +1,244 @@
+:root {
+  --primary: #FEC72E;
+  --primary-dark: #e6b325;
+  --text-dark: #202020;
+  --text-grey: #666;
+  --bg-light: #f8f9fa;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.stat-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(254, 199, 46, 0.3);
+}
+
+/* Decorative circle background */
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(254, 199, 46, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 0;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #fffdf5;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 10px rgba(254, 199, 46, 0.1);
+}
+
+.stat-card.revenue .stat-icon {
+  background: #e6ffed;
+  color: #28a745;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.1);
+}
+
+.stat-card.today .stat-icon {
+  background: #e3f2fd;
+  color: #007bff;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+}
+
+.stat-title {
+  font-size: 13px;
+  color: var(--text-grey);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Status List Styling */
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #eee;
+}
+
+.status-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.status-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.badge-count {
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Charts Section */
+.charts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.chart-container {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.chart-header {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chart-title i {
+  color: var(--primary);
+}
+
+.chart-period {
+  font-size: 12px;
+  color: #888;
+  background: #f8f9fa;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+canvas {
+  width: 100% !important;
+  height: 350px !important;
+}
+
+/* Welcome Card */
+.welcome-card {
+  background: linear-gradient(135deg, #202020 0%, #3a3a3a 100%);
+  border-radius: 20px;
+  padding: 30px;
+  color: white;
+  margin-bottom: 35px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 199, 46, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-card h2 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  color: #FEC72E;
+}
+
+.welcome-card p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 15px;
+}
+
+.welcome-icon {
+  font-size: 60px;
+  color: rgba(255, 255, 255, 0.05);
+  position: absolute;
+  right: 30px;
+  bottom: -10px;
+  transform: rotate(-10deg);
+}

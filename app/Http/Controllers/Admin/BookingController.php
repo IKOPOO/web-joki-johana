@@ -12,6 +12,24 @@ use Carbon\Carbon;
 
 class BookingController extends Controller
 {
+  public function verificationIndex()
+  {
+    $user = auth()->user();
+    $query = Booking::with(['user', 'studio', 'package'])
+      ->where('payment_proof', '!=', null)
+      ->where('payment_status', 'UNPAID')
+      ->whereIn('status', ['PENDING', 'PENDING_VERIFICATION']) // Covers both common statuses
+      ->orderBy('created_at', 'desc');
+
+    if ($user->role === 'STUDIO_STAF') {
+      $query->where('studio_id', $user->studio_id);
+    }
+
+    $bookings = $query->get();
+
+    return view('admin.bookings.verification', compact('bookings'));
+  }
+
   public function index(Request $request)
   {
     $user = auth()->user();
@@ -20,6 +38,8 @@ class BookingController extends Controller
 
     // Base query for stats
     $statsQuery = Booking::query();
+
+    // ENFORCE STUDIO FILTER FOR STAFF
     if ($isStaff) {
       $statsQuery->where('studio_id', $studioId);
     }
@@ -41,7 +61,20 @@ class BookingController extends Controller
       ->whereYear('booking_datetime', $currentYear);
 
     $monthlyBookings = (clone $monthlyQuery)->count();
+    $monthlyBookings = (clone $monthlyQuery)->count();
     $monthlyIncome = (clone $monthlyQuery)->sum('total_price');
+
+    // Pipeline Stats for Staff/Admin
+    // Menunggu Bayar: Pending & Unpaid
+    $waitingPayment = (clone $statsQuery)->where('status', 'PENDING')->where('payment_status', 'UNPAID')->count();
+    $waitingPaymentIncome = (clone $statsQuery)->where('status', 'PENDING')->where('payment_status', 'UNPAID')->sum('total_price');
+
+    // Verifikasi: All Pending (as requested)
+    $verificationPending = (clone $statsQuery)->where('status', 'PENDING')->count();
+    $verificationIncome = (clone $statsQuery)->where('status', 'PENDING')->sum('total_price');
+
+    $confirmedBookings = (clone $statsQuery)->where('status', 'CONFIRMED')->count();
+    $completedBookings = (clone $statsQuery)->where('status', 'DONE')->count();
 
     // Quick Stats
     $avgBookingsPerDay = $monthlyBookings / max(1, Carbon::now()->day);
@@ -67,12 +100,14 @@ class BookingController extends Controller
     $favoritePackage = $favoritePackageQuery->first();
 
     // Bookings Data with filter
-    $query = Booking::with(['user', 'studio', 'package'])
-      ->orderBy('booking_datetime', 'desc');
+    $query = Booking::with(['user', 'studio', 'package']);
 
+    // ENFORCE STUDIO FILTER FOR STAFF MAIN QUERY
     if ($isStaff) {
       $query->where('studio_id', $studioId);
     }
+
+    $query->orderBy('booking_datetime', 'desc');
 
     // Apply status filter
     if ($request->filled('status')) {
@@ -106,7 +141,14 @@ class BookingController extends Controller
       'currentMonth',
       'users',
       'studios',
-      'packages'
+      'packages',
+      'packages',
+      'waitingPayment',
+      'waitingPaymentIncome',
+      'verificationPending',
+      'verificationIncome',
+      'confirmedBookings',
+      'completedBookings'
     ));
   }
 
@@ -241,5 +283,44 @@ class BookingController extends Controller
       return redirect()->route('admin.bookings.index')
         ->with('error', 'Gagal menghapus booking: ' . $e->getMessage());
     }
+  }
+
+
+  /**
+   * Verify Payment (Agree)
+   */
+  public function verifyPayment(Booking $booking)
+  {
+    $user = auth()->user();
+    if ($user->role === 'STUDIO_STAF' && $booking->studio_id !== $user->studio_id) {
+      abort(403);
+    }
+
+    $booking->update([
+      'status' => 'CONFIRMED',
+      'payment_status' => 'PAID'
+    ]);
+
+    return redirect()->back()->with('success', 'Pembayaran diterima. Booking dikonfirmasi.');
+  }
+
+  /**
+   * Reject Payment (Cancel)
+   */
+  public function rejectPayment(Booking $booking)
+  {
+    $user = auth()->user();
+    if ($user->role === 'STUDIO_STAF' && $booking->studio_id !== $user->studio_id) {
+      abort(403);
+    }
+
+    $booking->update([
+      'status' => 'CANCELLED',
+      // User requested "rejected means cancelled", usually payment stays unpaid or can be marked as such
+      // Existing migration only has PAID/UNPAID. So we keep it UNPAID or if there was 'REJECTED' enum we would use it.
+      // Based on request: "reject itu jadinya cancelled"
+    ]);
+
+    return redirect()->back()->with('success', 'Pembayaran ditolak. Booking dibatalkan.');
   }
 }

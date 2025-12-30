@@ -1,0 +1,268 @@
+.btn-back-custom {
+  text-decoration: none;
+  color: #424242;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+  background: #f2f2f2;
+  padding: 10px 25px;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+}
+
+.btn-back-custom:hover {
+  background: #e6e6e6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back-custom i {
+  margin-right: 8px;
+  color: #FEC72E;
+}
+
+/* Wrapper for the card + receipt stack */
+.booking-item-wrapper {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+/* Main Dark Card */
+.reservation-card {
+  background: #202020;
+  color: white;
+  padding: 25px;
+  border-radius: 16px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+  border: 1px solid #333;
+}
+
+.studio-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FEC72E;
+  margin-bottom: 8px;
+}
+
+.res-meta {
+  display: flex;
+  gap: 20px;
+  color: #bbb;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.res-meta i {
+  color: #FEC72E;
+  width: 20px;
+}
+
+.pkg-badge {
+  background: rgba(254, 199, 46, 0.1);
+  color: #FEC72E;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(254, 199, 46, 0.3);
+}
+
+.res-action {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.status-text {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.status-text.pending {
+  color: #ffc107;
+}
+
+.status-text.confirmed {
+  color: #28a745;
+}
+
+.status-text.done {
+  color: #17a2b8;
+}
+
+.status-text.cancelled {
+  color: #dc3545;
+}
+
+.btn-toggle-detail {
+  background: white;
+  color: #202020;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.btn-toggle-detail:hover {
+  background: #FEC72E;
+}
+
+.btn-toggle-detail i {
+  transition: transform 0.3s;
+}
+
+/* Open State for Card */
+.booking-item-wrapper.open .reservation-card {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.booking-item-wrapper.open .btn-toggle-detail i {
+  transform: rotate(180deg);
+}
+
+/* Ticket/Receipt Animation */
+.ticket-receipt {
+  background: #fffdf5;
+  margin: 0 10px;
+  border-radius: 0 0 16px 16px;
+  position: relative;
+  z-index: 1;
+  /* Behind card initially, but logic puts it below */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+  opacity: 0;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  border-top: none;
+}
+
+.booking-item-wrapper.open .ticket-receipt {
+  max-height: 1200px;
+  /* Increased height to accommodate full image */
+  opacity: 1;
+  margin-top: -10px;
+  /* Slight overlap fix */
+  padding-top: 10px;
+}
+
+.receipt-content {
+  padding: 30px 25px 25px 25px;
+}
+
+.receipt-header {
+  display: flex;
+  justify-content: space-between;
+  color: #aaa;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.dashed-line {
+  border-top: 2px dashed #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FEC72E;
+  text-transform: uppercase;
+  margin: 15px 0 10px 0;
+  letter-spacing: 0.5px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #444;
+  align-items: flex-start;
+}
+
+.receipt-row label {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.receipt-row span {
+  text-align: right;
+  max-width: 60%;
+  font-weight: 500;
+}
+
+.price-val {
+  font-weight: 700;
+  color: #202020;
+  font-size: 1.1rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  background: white;
+  border-radius: 20px;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #eee;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  color: #666;
+}
+
+.empty-state p {
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.btn-book-now {
+  background: #FEC72E;
+  color: #424242;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media(max-width: 768px) {
+  .reservation-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .res-action {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

@@ -27,12 +27,7 @@
 
   <!-- Content Area -->
   <main class="content-body">
-    @if(auth()->user()->role === 'STUDIO_STAF')
-      <div class="dashboard-welcome">
-        <h2>Selamat Datang, {{ session('user_name', 'User') }}!</h2>
-        <p>Anda login sebagai <strong>Staff {{ auth()->user()->studio->name ?? 'Studio' }}</strong></p>
-      </div>
-    @endif
+
 
     @if(session('success'))
       <div class="alert alert-success">
@@ -48,20 +43,20 @@
       </div>
     @endif
 
-    <!-- Stats Cards Row -->
+    <!-- Booking Stats Grid (3 columns x 2 rows) -->
     <div class="booking-stats-grid">
-      <!-- Booking Pending -->
+      <!-- 1. Booking Bulan Ini -->
       @include('admin.partials.booking-stat-card', [
-        'modifier' => 'stat-pending',
-        'iconModifier' => 'pending',
-        'icon' => 'fas fa-clock',
-        'value' => $pendingBookings,
-        'label' => 'Booking Pending',
-        'incomeLabel' => 'Pending Income',
-        'incomeValue' => $pendingIncome
+        'modifier' => 'stat-month',
+        'iconModifier' => 'month',
+        'icon' => 'fas fa-calendar-alt',
+        'value' => $monthlyBookings,
+        'label' => 'Booking Bulan Ini',
+        'incomeLabel' => 'Income Bulan Ini',
+        'incomeValue' => $monthlyIncome
       ])
 
-      <!-- Booking Hari Ini -->
+      <!-- 2. Booking Hari Ini -->
       @include('admin.partials.booking-stat-card', [
         'modifier' => 'stat-today',
         'iconModifier' => 'today',
@@ -72,15 +67,42 @@
         'incomeValue' => $todayIncome
       ])
 
-      <!-- Booking Bulan Ini -->
+      <!-- 3. Menunggu Bayar (Pending & Unpaid) -->
       @include('admin.partials.booking-stat-card', [
-        'modifier' => 'stat-month',
+        'modifier' => 'stat-pending',
+        'iconModifier' => 'pending',
+        'icon' => 'fas fa-clock',
+        'value' => $waitingPayment,
+        'label' => 'Menunggu Bayar',
+        'incomeLabel' => 'Pending Income',
+        'incomeValue' => $waitingPaymentIncome
+      ])
+
+      <!-- 4. Verifikasi (All Pending) -->
+      @include('admin.partials.booking-stat-card', [
+        'modifier' => 'stat-info',
+        'iconModifier' => 'today',
+        'icon' => 'fas fa-clipboard-check',
+        'value' => $verificationPending,
+        'label' => 'Verifikasi'
+      ])
+
+      <!-- 5. Di Konfirmasi -->
+      @include('admin.partials.booking-stat-card', [
+        'modifier' => 'stat-success',
         'iconModifier' => 'month',
-        'icon' => 'fas fa-calendar-alt',
-        'value' => $monthlyBookings,
-        'label' => 'Booking Bulan Ini',
-        'incomeLabel' => 'Income Bulan Ini',
-        'incomeValue' => $monthlyIncome
+        'icon' => 'fas fa-check-circle',
+        'value' => $confirmedBookings,
+        'label' => 'Di Konfirmasi'
+      ])
+
+      <!-- 6. Selesai -->
+      @include('admin.partials.booking-stat-card', [
+        'modifier' => 'stat-primary',
+        'iconModifier' => 'pending', 
+        'icon' => 'fas fa-flag-checkered',
+        'value' => $completedBookings,
+        'label' => 'Selesai'
       ])
     </div>
 
@@ -141,7 +163,9 @@
               <th>Nama</th>
               <th>No HP</th>
               <th>Jadwal</th>
-              <th>Studio</th>
+              @if(auth()->user()->role === 'LENSIA_ADMIN')
+                <th>Studio</th>
+              @endif
               <th>Paket</th>
               <th>Income</th>
               <th>Status</th>
@@ -163,8 +187,11 @@
                     <span class="schedule-date">{{ $booking->booking_datetime?->format('d M Y') }}</span>
                     <span class="schedule-time">{{ $booking->booking_datetime?->format('H:i') }}</span>
                   </div>
+                  </div>
                 </td>
-                <td><span class="badge badge-studio">{{ $booking->studio?->name ?? '-' }}</span></td>
+                @if(auth()->user()->role === 'LENSIA_ADMIN')
+                  <td><span class="badge badge-studio">{{ $booking->studio?->name ?? '-' }}</span></td>
+                @endif
                 <td><span class="badge badge-package">{{ $booking->package?->name ?? '-' }}</span></td>
                 <td><span class="income-amount">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span></td>
                 <td>
@@ -181,12 +208,18 @@
                 </td>
                 <td>
                   <div class="action-buttons">
+                    <button class="btn-action btn-view" title="Lihat Detail" onclick="openDetailModal({{ $booking->id }})">
+                      <i class="fas fa-eye"></i>
+                    </button>
                     <button class="btn-action btn-edit" title="Edit" onclick="openEditModal({{ json_encode($booking) }})">
                       <i class="fas fa-edit"></i>
                     </button>
                     <button class="btn-action btn-delete" title="Hapus" onclick="confirmDelete({{ $booking->id }})">
                       <i class="fas fa-trash"></i>
                     </button>
+                  </div>
+                  <div id="booking-detail-{{ $booking->id }}" style="display:none;">
+                    @include('admin.partials.booking-detail', ['booking' => $booking])
                   </div>
                 </td>
               </tr>
@@ -286,6 +319,22 @@
     </div>
   </div>
 
+  <!-- View Booking Detail Modal -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-info-circle"></i> Detail Booking</h3>
+        <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="detailModalBody">
+        <!-- Content injected here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" onclick="closeDetailModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Delete Confirmation Modal -->
   <div class="modal-overlay" id="deleteModal">
     <div class="modal-content">
@@ -310,140 +359,11 @@
 @endsection
 
 @section('scripts')
+  @section('scripts')
   <script>
     // Packages data for dynamic dropdown
     const packagesData = @json($packages);
-
-    // Status filter
-    function filterByStatus() {
-      const status = document.getElementById('statusFilter').value;
-      const url = new URL(window.location.href);
-
-      if (status) {
-        url.searchParams.set('status', status);
-      } else {
-        url.searchParams.delete('status');
-      }
-      url.searchParams.delete('page');
-      window.location.href = url.toString();
-    }
-
-    // Client-side search
-    const searchInput = document.getElementById('searchInput');
-    const tableBody = document.getElementById('bookingTableBody');
-
-    if (searchInput) {
-      searchInput.addEventListener('input', function () {
-        const searchTerm = this.value.toLowerCase();
-        const rows = tableBody.querySelectorAll('tr');
-
-        rows.forEach(row => {
-          const name = row.querySelector('.customer-name')?.textContent.toLowerCase() || '';
-          const phone = row.querySelector('.phone-number')?.textContent.toLowerCase() || '';
-          const studio = row.querySelector('.badge-studio')?.textContent.toLowerCase() || '';
-
-          const matches = name.includes(searchTerm) || phone.includes(searchTerm) || studio.includes(searchTerm);
-          row.style.display = matches ? '' : 'none';
-        });
-      });
-    }
-
-    // Load packages based on studio
-    function loadPackages(studioId, prefix) {
-      const packageSelect = document.getElementById(prefix + '_package_id');
-      packageSelect.innerHTML = '<option value="">Pilih Paket</option>';
-
-      if (studioId) {
-        const studioPackages = packagesData.filter(p => p.studio_id == studioId);
-        studioPackages.forEach(pkg => {
-          const option = document.createElement('option');
-          option.value = pkg.id;
-          option.textContent = `${pkg.name} - Rp ${Number(pkg.price).toLocaleString('id-ID')}`;
-          packageSelect.appendChild(option);
-        });
-      }
-    }
-
-    // Add Modal
-    function openAddModal() {
-      document.getElementById('addModal').classList.add('active');
-    }
-
-    function closeAddModal() {
-      document.getElementById('addModal').classList.remove('active');
-    }
-
-    // Edit Modal
-    function openEditModal(booking) {
-      const form = document.getElementById('editForm');
-      form.action = `/admin/bookings/${booking.id}`;
-      
-      document.getElementById('edit_user_id').value = booking.user_id;
-      document.getElementById('edit_studio_id').value = booking.studio_id;
-      
-      // Load packages for the studio first
-      loadPackages(booking.studio_id, 'edit');
-      // Then set the package after a small delay to ensure options are loaded
-      setTimeout(() => {
-        document.getElementById('edit_package_id').value = booking.package_id;
-      }, 100);
-      
-      // Format date and time for inputs
-      if (booking.booking_datetime) {
-        const dt = new Date(booking.booking_datetime);
-        const dateStr = dt.toISOString().slice(0, 10);
-        const timeStr = dt.toTimeString().slice(0, 5);
-        document.getElementById('edit_booking_date').value = dateStr;
-        document.getElementById('edit_booking_time').value = timeStr;
-      }
-      
-      document.getElementById('edit_note').value = booking.note || '';
-      document.getElementById('edit_status').value = booking.status;
-      document.getElementById('edit_payment_status').value = booking.payment_status;
-      
-      document.getElementById('editModal').classList.add('active');
-    }
-
-    function closeEditModal() {
-      document.getElementById('editModal').classList.remove('active');
-    }
-
-    // Delete Modal
-    function confirmDelete(id) {
-      const form = document.getElementById('deleteForm');
-      form.action = `/admin/bookings/${id}`;
-      document.getElementById('deleteModal').classList.add('active');
-    }
-
-    function closeDeleteModal() {
-      document.getElementById('deleteModal').classList.remove('active');
-    }
-
-    // Close modals on backdrop click
-    document.querySelectorAll('.modal-overlay').forEach(modal => {
-      modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-          this.classList.remove('active');
-        }
-      });
-    });
-
-    // Close on escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay.active').forEach(modal => {
-          modal.classList.remove('active');
-        });
-      }
-    });
-
-    // Auto-hide alerts after 5 seconds
-    document.querySelectorAll('.alert').forEach(alert => {
-      setTimeout(() => {
-        alert.style.transition = 'opacity 0.5s ease';
-        alert.style.opacity = '0';
-        setTimeout(() => alert.remove(), 500);
-      }, 5000);
-    });
   </script>
+  <script src="{{ asset('js/admin/booking.js') }}"></script>
+@endsection
 @endsection

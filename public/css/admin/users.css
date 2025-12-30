@@ -798,3 +798,30 @@
     max-width: none;
   }
 }
+
+/* ===========================================
+   EDIT USER MODAL SPECIFIC STYLES
+   =========================================== */
+.modal-container {
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.show .modal-container {
+  transform: translateY(0);
+}
+
+/* Ensure modal header in edit modal matches */
+.modal-container .modal-header {
+  padding: 20px 24px;
+}
+
+.modal-container .modal-footer {
+  padding: 20px 24px;
+  border-top: 1px solid #f0f0f0;
+}

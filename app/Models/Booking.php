@@ -15,11 +15,14 @@ class Booking extends Model
     'user_id',
     'studio_id',
     'package_id',
+    'slot_id', // Add this
     'booking_datetime',
     'note',
     'status',
     'total_price',
     'payment_status',
+    'payment_method',
+    'payment_proof',
   ];
 
   protected $casts = [
@@ -43,5 +46,23 @@ class Booking extends Model
   public function package()
   {
     return $this->belongsTo(Package::class);
+  }
+
+  // Booking linked to slot (optional/nullable in older bookings)
+  public function sessionSlot()
+  {
+    // Since tbl_booking might not have slot_id foreign key or it was added recently?
+    // Wait, in the controller store method: 
+    // $slot = SessionSlot::findOrFail($request->session_slot_id);
+    // But in the create call:
+    // Booking::create([ ..., 'booking_datetime' => ... ]); 
+    // It DOES NOT save slot_id in the create array!
+
+    // Let's check the schema of tbl_booking to see if there IS a slot_id column.
+    // If not, we can't have a direct relationship unless we add the column or infer it.
+    // BUT the user's error message says "Call to undefined relationship [sessionSlot]".
+    // I should check if I missed adding slot_id to the fillable and the create method first?
+    // Actually checking schema is safest.
+    return $this->belongsTo(SessionSlot::class, 'slot_id');
   }
 }

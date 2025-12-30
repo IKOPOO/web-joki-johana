@@ -1,0 +1,536 @@
+/* Main Layout Styles */
+.studio-wrapper {
+  background: #f9f9f9;
+  padding-bottom: 50px;
+}
+
+.studio-hero {
+  height: 320px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  color: white;
+  margin-bottom: -40px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-content h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.detail-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  gap: 24px;
+  padding: 0 20px;
+}
+
+.main-info {
+  flex: 2;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-booking {
+  flex: 1;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #202020;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.studio-desc {
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.package-item {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pkg-info {
+  flex: 1;
+}
+
+.pkg-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.pkg-desc {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.pkg-price {
+  font-weight: 700;
+  color: #FEC72E;
+  background: #202020;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  margin-left: 15px;
+}
+
+.btn-book-big {
+  background: #FEC72E;
+  color: #202020;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-book-big:hover {
+  background: #e09537;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(254, 199, 46, 0.3);
+}
+
+/* Modal Styles */
+.booking-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+
+.booking-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.booking-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  max-width: 95%;
+  max-height: 90vh;
+  background: white;
+  z-index: 1002;
+  border-radius: 12px;
+  transform: translate(-50%, -50%) scale(0.9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-modal.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-header {
+  padding: 25px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.modal-header h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.modal-header span {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.close-btn {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 25px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.row-inputs {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #FEC72E;
+  outline: none;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 15px;
+}
+
+/* Method Cards */
+.method-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+}
+
+.method-card {
+  cursor: pointer;
+  position: relative;
+}
+
+.method-card input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.method-card .card-content {
+  border: 2px solid #eee;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.2s;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.method-card .card-content i {
+  font-size: 1.5rem;
+  color: #888;
+  transition: color 0.2s;
+}
+
+.method-card .card-content span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.method-card:hover .card-content {
+  border-color: #FEC72E;
+  background: #fffdf5;
+}
+
+.method-card input:checked+.card-content {
+  border-color: #FEC72E;
+  background: #fffdf5;
+  box-shadow: 0 4px 10px rgba(254, 199, 46, 0.2);
+}
+
+.method-card input:checked+.card-content i {
+  color: #FEC72E;
+}
+
+.method-card input:checked+.card-content span {
+  color: #202020;
+}
+
+/* Upload Area */
+.upload-area {
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fdfdfd;
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-area:hover {
+  border-color: #FEC72E;
+  background: #fffdf5;
+}
+
+.payment-instruction {
+  margin-top: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.bank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bank-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.bank-logo {
+  font-weight: 800;
+  color: #202020;
+  font-size: 1.1rem;
+  width: 60px;
+}
+
+.bank-info {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.acc-num {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  letter-spacing: 1px;
+}
+
+.acc-name {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.btn-copy {
+  background: none;
+  border: none;
+  color: #FEC72E;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.1rem;
+}
+
+.btn-copy:hover {
+  color: #e09537;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slots Grid */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.slot-card {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  background: #fdfdfd;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.slot-card:hover:not(.disabled) {
+  border-color: #FEC72E;
+  background: #fffdf5;
+}
+
+.slot-card.selected {
+  background: #FEC72E;
+  color: #202020;
+  border-color: #FEC72E;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(254, 199, 46, 0.3);
+}
+
+.slot-card.disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+  border-color: #eee;
+}
+
+.selection-card {
+  border: 2px solid #eee;
+  border-radius: 10px;
+}
+
+.selection-card:hover {
+  border-color: #FEC72E;
+  background: #fffdf5;
+}
+
+.selection-card input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Active State */
+.selection-card:has(input:checked) {
+  border-color: #FEC72E;
+  background: #fffdf5;
+  box-shadow: 0 4px 10px rgba(254, 199, 46, 0.2);
+}
+
+.card-content {
+  text-align: center;
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.card-price {
+  font-size: 0.95rem;
+  color: #FEC72E;
+  font-weight: 600;
+}
+
+@media(max-width: 768px) {
+  .detail-container {
+    flex-direction: column;
+    padding: 0 15px;
+    margin-top: 20px;
+  }
+
+  .studio-hero {
+    height: 200px;
+    margin-bottom: 0;
+  }
+
+  .booking-modal {
+    width: 90%;
+  }
+
+  .sidebar-booking {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    padding: 15px;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+  }
+
+  .studio-wrapper {
+    padding-bottom: 80px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

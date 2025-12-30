@@ -1,0 +1,124 @@
+.studio-card:hover {
+  transform: translateY(-8px);
+}
+
+.studio-img i {
+  transition: transform 0.3s ease;
+}
+
+.studio-card:hover .studio-img i {
+  transform: scale(1.1);
+}
+
+.studio-card:hover .studio-overlay {
+  opacity: 1;
+}
+
+.btn-book-studio:hover {
+  background: #e5b329 !important;
+  transform: translateY(-2px);
+}
+
+/* About Section (Customer Booking Index) - Separated from Home */
+.booking-about-section {
+  background-image: url('../../../images/bg2.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 200px -150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 150px 100px 100px 100px;
+  gap: 30px;
+  background-color: white;
+}
+
+/* Note: .booking-about-content class is present in HTML but style.css uses direct child or flex on section now. 
+   We will treat it as the flex container if needed, but based on style.css it was .why-us-section that had display:flex 
+   AND .about-content had display:flex. 
+   In style.css (line 140): .about-content { display: flex ... gap: 400px; } 
+*/
+.booking-about-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 400px;
+  /* From style.css line 146 */
+}
+
+.booking-images-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Dua kolom */
+  grid-template-rows: auto auto;
+  /* Dua baris */
+  grid-gap: 20px;
+  /* Jarak antar elemen */
+  grid-template-areas:
+    "foto1 foto2"
+    /* Baris pertama: satu foto penuh */
+    "foto1 foto3";
+  /* Baris kedua: dua foto berdampingan */
+}
+
+.booking-image:nth-child(1) {
+  grid-area: foto1;
+  /* Baris pertama, satu foto penuh */
+  width: 100%;
+  margin-top: 150px;
+}
+
+.booking-image:nth-child(2) {
+  grid-area: foto2;
+  /* Baris kedua, kolom pertama */
+  width: 100%;
+}
+
+.booking-image:nth-child(3) {
+  grid-area: foto3;
+  /* Baris kedua, kolom kedua */
+  width: 100%;
+}
+
+.booking-image {
+  width: 300px;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+.booking-text-container {
+  max-width: 500px;
+  position: relative;
+}
+
+.booking-text-container h2 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.booking-text-container h2 span {
+  color: #FFBF00;
+  /* Highlight Color */
+}
+
+.booking-text-container p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Background Highlight */
+.booking-text-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  background: #FFBF00;
+  z-index: -1;
+  border-radius: 10px;
+  transform: rotate(-5deg);
+}

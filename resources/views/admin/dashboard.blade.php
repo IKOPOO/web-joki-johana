@@ -198,249 +198,36 @@
 @section('scripts')
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Color palette
-    const colors = {
-      primary: '#FEC72E',
-      secondary: '#424242',
-      success: '#28a745',
-      danger: '#dc3545',
-      warning: '#FEC72E',
-      cream: '#FDF9F1',
-    };
-
-    // Chart.js global defaults
-    Chart.defaults.font.family = "'Poppins', sans-serif";
-    Chart.defaults.plugins.legend.labels.usePointStyle = true;
-
-    // 1. Booking per Studio (Bar Chart)
-    new Chart(document.getElementById('bookingPerStudioChart'), {
-      type: 'bar',
-      data: {
+    const dashboardData = {
+      bookingPerStudio: {
         labels: {!! json_encode($bookingPerStudio->pluck('name')) !!},
-        datasets: [{
-          label: 'Jumlah Booking',
-          data: {!! json_encode($bookingPerStudio->pluck('count')) !!},
-          backgroundColor: [
-            'rgba(254, 199, 46, 0.9)',
-            'rgba(66, 66, 66, 0.8)',
-            'rgba(254, 199, 46, 0.7)',
-            'rgba(66, 66, 66, 0.6)',
-            'rgba(254, 199, 46, 0.5)'
-          ],
-          borderRadius: 8,
-          borderSkipped: false,
-        }]
+        counts: {!! json_encode($bookingPerStudio->pluck('count')) !!}
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { 
-            beginAtZero: true, 
-            grid: { color: 'rgba(0,0,0,0.05)' },
-            ticks: { stepSize: 1 }
-          },
-          x: { grid: { display: false } }
-        }
-      }
-    });
-
-    // 2. Booking per Month (Line Chart)
-    new Chart(document.getElementById('bookingPerMonthChart'), {
-      type: 'line',
-      data: {
+      monthlyTrend: {
         labels: {!! json_encode($monthlyTrend->pluck('month')) !!},
-        datasets: [{
-          label: 'Total Booking',
-          data: {!! json_encode($monthlyTrend->pluck('count')) !!},
-          borderColor: colors.primary,
-          backgroundColor: 'rgba(254, 199, 46, 0.15)',
-          fill: true,
-          tension: 0.4,
-          pointBackgroundColor: colors.primary,
-          pointBorderColor: '#fff',
-          pointBorderWidth: 2,
-          pointRadius: 5,
-        }]
+        counts: {!! json_encode($monthlyTrend->pluck('count')) !!}
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { 
-            beginAtZero: true, 
-            grid: { color: 'rgba(0,0,0,0.05)' },
-            ticks: { stepSize: 1 }
-          },
-          x: { grid: { display: false } }
-        }
-      }
-    });
-
-    // 3. Booking Ratio (Pie Chart)
-    new Chart(document.getElementById('bookingRatioChart'), {
-      type: 'pie',
-      data: {
-        labels: ['Selesai (Done)', 'Dibatalkan (Cancelled)', 'Lainnya (Pending/Process)'],
-        datasets: [{
-          data: [
-            {{ $bookingRatio['done'] }}, 
-            {{ $bookingRatio['cancelled'] }}, 
-            {{ $bookingRatio['others'] }}
-          ],
-          backgroundColor: [
-            'rgba(40, 167, 69, 0.8)',
-            'rgba(220, 53, 69, 0.8)',
-            'rgba(254, 199, 46, 0.8)'
-          ],
-          borderWidth: 0,
-          hoverOffset: 10
-        }]
+      bookingRatio: {
+        done: {{ $bookingRatio['done'] }},
+        cancelled: {{ $bookingRatio['cancelled'] }},
+        others: {{ $bookingRatio['others'] }}
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { padding: 20 }
-          }
-        }
-      }
-    });
-
-    // 4. Income per Studio (Bar Chart)
-    new Chart(document.getElementById('incomePerStudioChart'), {
-      type: 'bar',
-      data: {
+      incomePerStudio: {
         labels: {!! json_encode($incomePerStudio->pluck('name')) !!},
-        datasets: [{
-          label: 'Total Income',
-          data: {!! json_encode($incomePerStudio->pluck('income')) !!},
-          backgroundColor: [
-            'rgba(66, 66, 66, 0.9)',
-            'rgba(254, 199, 46, 0.9)',
-            'rgba(66, 66, 66, 0.7)',
-            'rgba(254, 199, 46, 0.7)',
-            'rgba(66, 66, 66, 0.5)'
-          ],
-          borderRadius: 8,
-          borderSkipped: false,
-        }]
+        income: {!! json_encode($incomePerStudio->pluck('income')) !!}
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: { color: 'rgba(0,0,0,0.05)' },
-            ticks: {
-              callback: function (value) {
-                if (value >= 1000000) return 'Rp ' + (value/1000000).toFixed(1) + 'jt';
-                if (value >= 1000) return 'Rp ' + (value/1000).toFixed(0) + 'rb';
-                return 'Rp ' + value;
-              }
-            }
-          },
-          x: { grid: { display: false } }
-        }
-      }
-    });
-
-    // 5. Monthly Income Trend (Line Chart)
-    new Chart(document.getElementById('incomeProjectionChart'), {
-      type: 'line',
-      data: {
+      incomeTrend: {
         labels: {!! json_encode($incomeTrend->pluck('month')) !!},
-        datasets: [
-          {
-            label: 'Pendapatan Diterima (PAID)',
-            data: {!! json_encode($incomeTrend->pluck('income')) !!},
-            borderColor: colors.success,
-            backgroundColor: 'rgba(40, 167, 69, 0.1)',
-            fill: true,
-            tension: 0.4,
-            pointRadius: 4,
-          },
-          {
-            label: 'Proyeksi Pendapatan (UNPAID)',
-            data: {!! json_encode($incomeTrend->pluck('pending')) !!},
-            borderColor: colors.warning,
-            backgroundColor: 'rgba(254, 199, 46, 0.1)',
-            fill: true,
-            tension: 0.4,
-            pointRadius: 4,
-          }
-        ]
+        income: {!! json_encode($incomeTrend->pluck('income')) !!},
+        pending: {!! json_encode($incomeTrend->pluck('pending')) !!}
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top',
-            align: 'end'
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: { color: 'rgba(0,0,0,0.05)' },
-            ticks: {
-              callback: function (value) {
-                if (value >= 1000000) return 'Rp ' + (value/1000000).toFixed(1) + 'jt';
-                if (value >= 1000) return 'Rp ' + (value/1000).toFixed(0) + 'rb';
-                return 'Rp ' + value;
-              }
-            }
-          },
-          x: { grid: { display: false } }
-        }
+      userSegmentation: {
+        new: {{ $userSegmentation['new'] }},
+        engaged: {{ $userSegmentation['engaged'] }},
+        casual: {{ $userSegmentation['casual'] }},
+        dormant: {{ $userSegmentation['dormant'] }}
       }
-    });
-
-    // 6. User Segmentation (Pie Chart) - Lifecycle Based
-    new Chart(document.getElementById('userSegmentationChart'), {
-      type: 'pie',
-      data: {
-        labels: ['New (<30 Hari)', 'Engaged (≥2 Booking)', 'Casual (1 Booking)', 'Dormant (Belum Booking)'],
-        datasets: [{
-          data: [
-            {{ $userSegmentation['new'] }}, 
-            {{ $userSegmentation['engaged'] }}, 
-            {{ $userSegmentation['casual'] }}, 
-            {{ $userSegmentation['dormant'] }}
-          ],
-          backgroundColor: [
-            'rgba(40, 167, 69, 0.8)',  // Hijau untuk New
-            'rgba(254, 199, 46, 0.9)', // Kuning untuk Engaged
-            'rgba(66, 66, 66, 0.6)',   // Abu untuk Casual
-            'rgba(220, 53, 69, 0.7)'   // Merah untuk Dormant
-          ],
-          borderWidth: 0,
-          hoverOffset: 10
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { padding: 15 }
-          }
-        }
-      }
-    });
+    };
   </script>
+  <script src="{{ asset('js/admin/dashboard.js') }}"></script>
 @endsection

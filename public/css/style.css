@@ -33,8 +33,8 @@ body {
     /* Top Right */
     "foto1 foto3";
   /* Bottom Right */
-  width: 40%;
-  /* Further reduced width */
+  width: 38%;
+  /* Increased width from 40% */
   align-self: center;
   /* Ensure container is centered vertically in flex item if needed */
 }
@@ -143,8 +143,8 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 400px;
-  /* Increased separation */
+  gap: 60px;
+  /* Reduced separation to fit content */
 }
 
 /* ... skipped unchanged ... */

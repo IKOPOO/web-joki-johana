@@ -14,7 +14,7 @@ class AuthController extends Controller
 
   public function showRegisterForm()
   {
-    return view('auth.register');
+    return view('auth.login', ['isRegister' => true]);
   }
 
   public function login(Request $request)
@@ -52,6 +52,8 @@ class AuthController extends Controller
         return redirect()->route('admin.dashboard');
       } elseif ($user->role === 'STUDIO_STAF') {
         return redirect()->route('admin.bookings.index');
+      } elseif (strtoupper($user->role) === 'CUSTOMER') {
+        return redirect()->route('customer.booking.index');
       }
 
       return redirect('/');
@@ -60,7 +62,7 @@ class AuthController extends Controller
     // if login failed
     return back()->withErrors([
       'email' => 'Email atau Password Salah'
-    ])->onlyInput('email', 'password');
+    ])->onlyInput('email', 'form_type');
 
   }
 
@@ -80,7 +82,7 @@ class AuthController extends Controller
       'email' => $validated['email'],
       'phone' => $validated['no_hp'],
       'password' => bcrypt($validated['password']),
-      'role' => 'customer', // default role
+      'role' => 'CUSTOMER', // default role
       'status' => 'active', // default status
     ]);
 
